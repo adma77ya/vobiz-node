@@ -1,3 +1,6 @@
 'use strict';
 
-module.exports = require('./lib/rest/client');
+const client = require('./lib/rest/client');
+const { AccessToken } = require('./lib/utils/jwt');
+
+module.exports = Object.assign({}, client, { AccessToken });

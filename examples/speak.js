@@ -4,6 +4,7 @@
  * This sends a TTS (text-to-speech) message into an in-progress call.
  * Replace CALL_UUID with a real live call UUID.
  */
+require('dotenv').config();
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 

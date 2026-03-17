@@ -1,7 +1,11 @@
+require('dotenv').config();
 var Vobiz = require('..');
 
+var authId    = process.env.VOBIZ_AUTH_ID    || '{authId}';
+var authToken = process.env.VOBIZ_AUTH_TOKEN || '{authToken}';
+
 // token generation using from epoch and length in seconds
-var acctkn = new Vobiz.AccessToken('{authId}', '{authToken}', '{endpointUsername}', {validFrom: (new Date()).getTime()/1000, lifetime: 300}, '{uid}');
+var acctkn = new Vobiz.AccessToken(authId, authToken, '{endpointUsername}', {validFrom: (new Date()).getTime()/1000, lifetime: 300}, '{uid}');
 
 // voice (incoming, outgoing) grants
 acctkn.addVoiceGrants(false, true);

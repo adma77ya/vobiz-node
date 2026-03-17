@@ -1,17 +1,19 @@
+require('dotenv').config();
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 
 var subAccountId;
 
-// Create a sub-account
+// Create a sub-account (email must be unique)
 client.subaccounts.create({
   name:     'Test Sub-account ' + Date.now(),
-  email:    'subtest@example.com',
+  email:    'subtest' + Date.now() + '@example.com',
   password: 'SecurePass123!'
 })
   .then(function(response) {
     console.log("\n============ created ===========\n", response);
-    subAccountId = response.id || response.auth_id;
+    // Use authId (e.g. SA_XXXXXXXX) — not the numeric internal id
+    subAccountId = (response.subAccount && response.subAccount.authId) || response.authId;
     return client.subaccounts.get(subAccountId);
   })
   .then(function(response) {

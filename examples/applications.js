@@ -1,3 +1,4 @@
+require('dotenv').config();
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 

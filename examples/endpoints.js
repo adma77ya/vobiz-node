@@ -1,10 +1,11 @@
+require('dotenv').config();
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 
 var endpointId;
 
-// Create a SIP endpoint
-client.endpoints.create('testuser_' + Date.now(), 'SecurePass123!', 'Test Endpoint')
+// Create a SIP endpoint (username must be alphanumeric only)
+client.endpoints.create('sdktest' + Date.now(), 'SecurePass123!', 'Test Endpoint')
   .then(function(endpoint) {
     console.log("\n============ created ===========\n", endpoint);
     endpointId = endpoint.endpointId;
