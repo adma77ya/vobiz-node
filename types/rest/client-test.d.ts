@@ -21,7 +21,7 @@ export class Client {
     verify: VerifyInterface;
 }
 /**
- * Plivo API client which can be used to access the Plivo APIs.
+ * Vobiz API client which can be used to access the Vobiz APIs.
  * To set a proxy or timeout, pass in options.proxy (url) or options.timeout (number in ms)
  * You can also pass in additional parameters accepted by the node requests module.
  */

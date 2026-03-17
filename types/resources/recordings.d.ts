@@ -50,7 +50,7 @@ export class ListRecordingResponse {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class Recording extends PlivoResource {
+export class Recording extends VobizResource {
 	constructor(client: Function, data ? : {});
 	id: string;
 	[clientKey]: symbol;
@@ -61,7 +61,7 @@ export class Recording extends PlivoResource {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class RecordingInterface extends PlivoResourceInterface {
+export class RecordingInterface extends VobizResourceInterface {
 	constructor(client: Function, data ? : {});
 	/**
 	 * Delete recording by id
@@ -94,10 +94,10 @@ export class RecordingInterface extends PlivoResourceInterface {
     list(params?: {}): Promise<ListRecordingResponse>;
 }
 import {
-	PlivoResource
+	VobizResource
 } from "../base";
 declare const clientKey: unique symbol;
 import {
-	PlivoResourceInterface
+	VobizResourceInterface
 } from "../base";
 export {};

@@ -123,7 +123,7 @@ export class StartStreamResponse {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class Call extends PlivoResource {
+export class Call extends VobizResource {
 	constructor(client: Function, data ? : {});
 	id: string;
 	/**
@@ -157,7 +157,7 @@ export class Call extends PlivoResource {
 	 * start audio stream over call
 	 * @method
 	 * @param {object} params - to start audio stream over a call
-	 * @promise {object} return PlivoGenericResponse Object
+	 * @promise {object} return VobizGenericResponse Object
 	 * @fail {Error} return Error
 	 */
 	startStream(params: object): Promise < any > ;
@@ -166,7 +166,7 @@ export class Call extends PlivoResource {
 	 * start audio stream over call
 	 * @method
 	 * @param {object} params - to start audio stream over a call
-	 * @promise {object} return PlivoGenericResponse Object
+	 * @promise {object} return VobizGenericResponse Object
 	 * @fail {Error} return Error
 	 */
 	startStreaming(params: object): Promise < StartStreamResponse > ;
@@ -175,7 +175,7 @@ export class Call extends PlivoResource {
 	 * record call
 	 * @method
 	 * @param {object} params - to record call
-	 * @promise {object} return PlivoGenericResponse Object
+	 * @promise {object} return VobizGenericResponse Object
 	 * @fail {Error} return Error
 	 */
 	record(params: object): Promise < any > ;
@@ -183,7 +183,7 @@ export class Call extends PlivoResource {
 	 * record call
 	 * @method
 	 * @param {object} params - to record call
-	 * @promise {object} return PlivoGenericResponse Object
+	 * @promise {object} return VobizGenericResponse Object
 	 * @fail {Error} return Error
 	 */
 	startRecording(params: object): Promise < RecordCallResponse > ;
@@ -191,7 +191,7 @@ export class Call extends PlivoResource {
 	 * stop recording call
 	 * @method
 	 * @param {object} params - to stop recording call
-	 * @promise {object} return PlivoGenericResponse Object
+	 * @promise {object} return VobizGenericResponse Object
 	 * @fail {Error} return Error
 	 */
 	stopRecording(params: object): Promise < any > ;
@@ -200,7 +200,7 @@ export class Call extends PlivoResource {
 	 * @method
 	 * @param {string} url - url which contains audio to play for call
 	 * @param {object} optionalParams - to stop recording call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	playMusic(url: string, optionalParams: object): Promise < any > ;
@@ -209,14 +209,14 @@ export class Call extends PlivoResource {
 	 * @method
 	 * @param {string} url - url which contains audio to play for call
 	 * @param {object} optionalParams - to stop recording call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	startPlayingMusic(urls: any, optionalParams: object): Promise < StartPlayingMusicResponse > ;
 	/**
 	 * stop playing music for call
 	 * @method
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	stopPlayingMusic(): Promise < any > ;
@@ -225,7 +225,7 @@ export class Call extends PlivoResource {
 	 * @method
 	 * @param {string} text - text to speak for call
 	 * @param {object} optionalParams - to speak for call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	speakText(text: string, optionalParams: object): Promise < any > ;
@@ -234,14 +234,14 @@ export class Call extends PlivoResource {
 	 * @method
 	 * @param {string} text - text to speak for call
 	 * @param {object} optionalParams - to speak for call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	startSpeakingText(text: string, optionalParams: object): Promise < StartSpeakingTextResponse > ;
 	/**
 	 * stop speaking text for call
 	 * @method
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	stopSpeakingText(): Promise < any > ;
@@ -250,14 +250,14 @@ export class Call extends PlivoResource {
 	 * @method
 	 * @param {string} digits - digits to be send
 	 * @param {object} optionalParams - to send digits for call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	sendDigits(digits: string, optionalParams: object): Promise < SendDigitsResponse > ;
 	/**
 	 * Hangup a Call Request
 	 * @method
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	cancel(): Promise < any > ;
@@ -269,7 +269,7 @@ export class Call extends PlivoResource {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class CallInterface extends PlivoResourceInterface {
+export class CallInterface extends VobizResourceInterface {
 	constructor(client: Function, data ? : {});
 	/**
 	 * Get A Call Detail
@@ -291,14 +291,14 @@ export class CallInterface extends PlivoResourceInterface {
 	 * Create a call
 	 * @method
 	 * @param {string} from - The phone number to be used as the caller id (with the country code).For e.g, a USA caller id number could be, 15677654321, with '1' for the country code.
-	 * @param {string} to - The regular number(s) or sip endpoint(s) to call. Regular number must be prefixed with country code but without the + sign). For e.g, to dial a number in the USA, the number could be, 15677654321, with '1' for the country code. Multiple numbers can be sent by using a delimiter. For e.g. 15677654321<12077657621<12047657621. Sip endpoints must be prefixed with sip: E.g., sip:john1234@phone.plivo.com. To make bulk calls, the delimiter < is used. For example, 15677654321<15673464321<sip:john1234@phone.plivo.com Yes, you can mix regular numbers and sip endpoints.
-	 * @param {string} answerUrl - The URL invoked by Plivo when the outbound call is answered.
+	 * @param {string} to - The regular number(s) or sip endpoint(s) to call. Regular number must be prefixed with country code but without the + sign). For e.g, to dial a number in the USA, the number could be, 15677654321, with '1' for the country code. Multiple numbers can be sent by using a delimiter. For e.g. 15677654321<12077657621<12047657621. Sip endpoints must be prefixed with sip: E.g., sip:john1234@phone.vobiz.ai. To make bulk calls, the delimiter < is used. For example, 15677654321<15673464321<sip:john1234@phone.vobiz.ai Yes, you can mix regular numbers and sip endpoints.
+	 * @param {string} answerUrl - The URL invoked by Vobiz when the outbound call is answered.
 	 * @param {object} params - optional params to make a call
-	 * @param {string} [params.answerUrl] The URL invoked by Plivo when a call executes this application.
+	 * @param {string} [params.answerUrl] The URL invoked by Vobiz when a call executes this application.
 	 * @param {string} [params.answerMethod] The method used to call the answer_url. Defaults to POST.
-	 * @param {string} [params.hangupUrl] The URL that is notified by Plivo when the call hangs up.
+	 * @param {string} [params.hangupUrl] The URL that is notified by Vobiz when the call hangs up.
 	 * @param {string} [params.hangupMethod] The method used to call the hangup_url. Defaults to POST
-	 * @param {string} [params.fallbackAnswerUrl] Invoked by Plivo only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
+	 * @param {string} [params.fallbackAnswerUrl] Invoked by Vobiz only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
 	 * @param {string} [params.fallbackMethod] The method used to call the fallback_answer_url. Defaults to POST.
 	 * @param {string} [params.callerName] Caller name to use with the call.
 	 * @param {string} [params.sendDigits] Each 'w' character waits 0.5 second before sending a digit. Each 'W' character waits 1 second before sending a digit. You can also add the tone duration in ms by appending @duration after the string (default duration is 2000 ms). For example, 1w2w3@1000
@@ -307,13 +307,13 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @param {number} [params.hangupOnRing] Schedules the call for hangup at a specified time after the call starts ringing. Value should be an integer >= 0 (in seconds).
 	 * @param {string} [params.machineDetection] Used to detect if the call has been answered by a machine. The valid values are true and hangup.
 	 * @param {number} [params.machineDetectionTime] Time allotted to analyze if the call has been answered by a machine. It should be an integer >= 2000 and <= 10000 and the unit is ms. The default value is 5000 ms.
-	 * @param {string} [params.machineDetectionUrl] A URL where machine detection parameters will be sent by Plivo. This parameter should be used to make machine detection asynchronous
-	 * @param {string} [params.machineDetectionMethod] The HTTP method which will be used by Plivo to request the machine_detection_url. Defaults to POST.
+	 * @param {string} [params.machineDetectionUrl] A URL where machine detection parameters will be sent by Vobiz. This parameter should be used to make machine detection asynchronous
+	 * @param {string} [params.machineDetectionMethod] The HTTP method which will be used by Vobiz to request the machine_detection_url. Defaults to POST.
 	 * @param {string} [params.sipHeaders] List of SIP headers in the form of 'key=value' pairs, separated by commas.
 	 * @param {number} [params.ringTimeout] Determines the time in seconds the call should ring. If the call is not answered within the ring_timeout value or the default value of 120s, it is canceled.
 	 * @param {string} [params.parentCallUuid] The call_uuid of the first leg in an ongoing conference call. It is recommended to use this parameter in scenarios where a member who is already present in the conference intends to add new members by initiating outbound API calls.
 	 * @param {boolean} [params.errorIfParentNotFound] if set to true and the parent_call_uuid cannot be found, the API request would return an error. If set to false, the outbound call API request will be executed even if the parent_call_uuid is not found. Defaults to false.
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	create(from: string, to: string, answerUrl: string, params ? : {}): Promise < CreateCallResponse > ;
@@ -322,7 +322,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * Hangup A Specific Call
 	 * @method
 	 * @param {string} callUUID - call uuid to hangup call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	hangup(callUUID: string): Promise < any > ;
@@ -336,7 +336,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @param {string} [params.alegMethod] HTTP method to invoke aleg_url. Defaults to POST.
 	 * @param {string} [params.blegUrl] URL to transfer for bridged leg, if legs is bleg or both, then bleg_url has to be specified.
 	 * @param {string} [params.blegMethod] HTTP method to invoke bleg_url. Defaults to POST.
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	transfer(callUUID: string, params: {
@@ -354,13 +354,13 @@ export class CallInterface extends PlivoResourceInterface {
      * @param {string} callUuid - For this callUuid audio streaming will start.
      * @param {object} params - optional params to start a stream
      * @param {string} [params.bidirectional] Specifies if the audio being streamed over web-sockets is oneway (read only for the wss service) only or bidirectional (the wss service can read as well as write audio back).
-     * @param {string} [params.audioTrack] The audio track (inbound or outbound) of the underlying call which Plivo will fork and stream to the wss service. Inbound [default], outbound, both. Note: only inbound is allowed if bidirectional is true.
+     * @param {string} [params.audioTrack] The audio track (inbound or outbound) of the underlying call which Vobiz will fork and stream to the wss service. Inbound [default], outbound, both. Note: only inbound is allowed if bidirectional is true.
      * @param {string} [params.streamTimeout] Maximum duration, in seconds, for which audio will be streamed once streaming starts. At the end of the specified duration, streaming will stop. This will have no impact on the rest of the call flow. Defaults to 86400 (24 hrs).
-     * @param {string} [params.statusCallbackUrl] URL that is notified by Plivo when stream is connected, stopped, failed to connect or disconnected. Note: not called when the call gets disconnected.
+     * @param {string} [params.statusCallbackUrl] URL that is notified by Vobiz when stream is connected, stopped, failed to connect or disconnected. Note: not called when the call gets disconnected.
      * @param {string} [params.statusCallbackMethod] POST[default], GET.
      * @param {string} [params.contentType] Preferred audio codec and sampling rate. Allowed, audio/x-l16;rate=8000 [default], audio/x-l16;rate=16000 and audio/x-mulaw;rate=8000.
      * @param {string} [params.extraHeaders] These are key value pairs which will be passed to the wss service along with your stream. Total length of the string being passed should be less than equal to 512 bytes.
-     * @promise {object} returns PlivoGenericResponse Object
+     * @promise {object} returns VobizGenericResponse Object
      * @fail {Error} returns Error
      */
 	startStream(serviceUrl: string, callUUID: string, optionalParams: object): Promise < any > ;
@@ -370,7 +370,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @method
 	 * @param {string} callUUID - call uuid to record call
 	 * @param {object} optionalParams - optional params to record a call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	record(callUUID: string, optionalParams: object): Promise < any > ;
@@ -379,7 +379,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @method
 	 * @param {string} callUUID - call uuid to stop recording a call
 	 * @param {object} optionalParams - optional params to stop recording a call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	stopRecording(callUUID: string, optionalParams: object): Promise < any > ;
@@ -389,7 +389,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @param {string} callUUID - call uuid to play music file
 	 * @param {string} url - A single URL or a list of comma separated URLs linking to an mp3 or wav file.
 	 * @param {object} optionalParams - optional params to play music file.
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	playMusic(callUUID: string, urls: any, optionalParams: object): Promise < any > ;
@@ -397,7 +397,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * Stop Playing a music file
 	 * @method
 	 * @param {string} callUUID - call uuid to stop plaing music file
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	stopPlayingMusic(callUUID: string): Promise < any > ;
@@ -407,7 +407,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @param {string} callUUID - call uuid to speak text during a call
 	 * @param {string} text - text to be played.
 	 * @param {object} optionalParams - optional params to speak text during a call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	speakText(callUUID: string, text: string, optionalParams: object): Promise < any > ;
@@ -416,7 +416,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @method
 	 * @param {string} callUUID - call uuid to stop speaking text during a call
 	 * @param {object} optionalParams - optional params to stop speaking text during a call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	stopSpeakingText(callUUID: string): Promise < any > ;
@@ -426,7 +426,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * @param {string} callUUID - call uuid to send digits on a call
 	 * @param {string} digits - digits to be send
 	 * @param {object} optionalParams - optional params to send digits
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	sendDigits(callUUID: string, digits: string, optionalParams: object): Promise < any > ;
@@ -434,7 +434,7 @@ export class CallInterface extends PlivoResourceInterface {
 	 * Hangup a call request
 	 * @method
 	 * @param {string} callUUID - call uuid to send digits on a call
-	 * @promise {object} returns PlivoGenericResponse Object
+	 * @promise {object} returns VobizGenericResponse Object
 	 * @fail {Error} returns Error
 	 */
 	cancel(id: string): Promise < any > ;
@@ -446,22 +446,22 @@ export class CallInterface extends PlivoResourceInterface {
 	[liveCallInterfaceKey]: LiveCallInterface;
 	[queuedCallInterfaceKey]: QueuedCallInterface;
 }
-export class LiveCallResource extends PlivoResource {
+export class LiveCallResource extends VobizResource {
 	constructor(client: Function, data ? : {});
 	id: string;
 	[clientKey]: symbol;
 }
-export class QueuedCallResource extends PlivoResource {
+export class QueuedCallResource extends VobizResource {
 	constructor(client: Function, data ? : {});
 	id: string;
 	[clientKey]: symbol;
 }
 import {
-	PlivoResource
+	VobizResource
 } from "../base";
 declare const clientKey: unique symbol;
 import {
-	PlivoResourceInterface
+	VobizResourceInterface
 } from "../base";
 declare const liveCallInterfaceKey: unique symbol;
 /**
@@ -470,7 +470,7 @@ declare const liveCallInterfaceKey: unique symbol;
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-declare class LiveCallInterface extends PlivoResourceInterface {
+declare class LiveCallInterface extends VobizResourceInterface {
 	constructor(client: Function, data ? : {});
 	[clientKey]: symbol;
 }
@@ -482,7 +482,7 @@ declare const queuedCallInterfaceKey: unique symbol;
  * @param {object} [data] - data of call
  */
 
-declare class QueuedCallInterface extends PlivoResourceInterface {
+declare class QueuedCallInterface extends VobizResourceInterface {
 	constructor(client: Function, data ? : {});
 	get(id: string): Promise < GetQueuedCallResponse > ;
 	list(): Promise < ListAllQueuedCalls > ;

@@ -48,7 +48,7 @@ export class DeafMemberResponse {
     memberId: string;
     message: string;
 }
-export class Conference extends PlivoResource {
+export class Conference extends VobizResource {
     constructor(client: Function, data?: {});
     id: string;
     /**
@@ -62,7 +62,7 @@ export class Conference extends PlivoResource {
      * hangup member from conference
      * @method
      * @param {string} memberId - id of member to be hangup
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     hangupMember(memberId: string): Promise<any>;
@@ -70,7 +70,7 @@ export class Conference extends PlivoResource {
      * kick member from conference
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     kickMember(memberId: string): Promise<any>;
@@ -78,7 +78,7 @@ export class Conference extends PlivoResource {
      * mute member from conference
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     muteMember(memberId: string): Promise<MuteMemberResponse>;
@@ -86,7 +86,7 @@ export class Conference extends PlivoResource {
      * unmute member from conference
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     unmuteMember(memberId: string): Promise<any>;
@@ -94,7 +94,7 @@ export class Conference extends PlivoResource {
      * deaf member from conference
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     deafMember(memberId: string): Promise<DeafMemberResponse>;
@@ -102,7 +102,7 @@ export class Conference extends PlivoResource {
      * undeaf member from conference
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     undeafMember(memberId: string): Promise<any>;
@@ -111,7 +111,7 @@ export class Conference extends PlivoResource {
      * @method
      * @param {string} memberId - id of member
      * @param {string} url - url for audio
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     playAudioToMember(memberId: string, url: string): Promise<PlayAudioMemberResponse>;
@@ -119,7 +119,7 @@ export class Conference extends PlivoResource {
      * stop playing audio to member
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopPlayingAudioToMember(memberId: string): Promise<any>;
@@ -131,7 +131,7 @@ export class Conference extends PlivoResource {
      * @param {object} optionalParams - optionalPrams to speak text
      * @param {string} [optionalParams.voice] The voice to be used. Can be MAN or WOMAN. Defaults to WOMAN.
      * @param {string} [optionalParams.language] The language to be used. Defaults to en-US.
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     speakTextToMember(memberId: string, text: string, optionalParams: {
@@ -142,7 +142,7 @@ export class Conference extends PlivoResource {
      * stop speaking text to member
      * @method
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopSpeakingTextToMember(memberId: string): Promise<any>;
@@ -158,7 +158,7 @@ export class Conference extends PlivoResource {
      * @param {string} [params.transcriptionMethod] The method used to invoke the transcription_url. Defaults to POST.
      * @param {string} [params.callbackUrl] The URL invoked by the API when the recording ends.
      * @param {string} [params.callbackMethod] The method which is used to invoke the callback_url URL. Defaults to POST.
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     record(params: {
@@ -181,7 +181,7 @@ export class Conference extends PlivoResource {
      * @param {string} [params.transcriptionMethod] The method used to invoke the transcription_url. Defaults to POST.
      * @param {string} [params.callbackUrl] The URL invoked by the API when the recording ends.
      * @param {string} [params.callbackMethod] The method which is used to invoke the callback_url URL. Defaults to POST.
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     startRecording(params?: {
@@ -195,7 +195,7 @@ export class Conference extends PlivoResource {
     /**
      * stop recording conference
      * @method
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopRecording(): Promise<any>;
@@ -207,7 +207,7 @@ export class Conference extends PlivoResource {
 * @param {function} client - make api call
 * @param {object} [data] - data of call
 */
-export class ConferenceInterface extends PlivoResourceInterface {
+export class ConferenceInterface extends VobizResourceInterface {
     constructor(client: Function, data?: {});
 
     /**
@@ -236,7 +236,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
     /**
      * hangup all
      * @method
-     * @promise {@link PlivoGenericResponse} returns object of PlivoGenericResponse if success
+     * @promise {@link VobizGenericResponse} returns object of VobizGenericResponse if success
      * @fail {Error} return Error
      */
     hangupAll(): Promise<any>;
@@ -245,7 +245,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member to be hangup
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     hangupMember(id: string, memberId: string): Promise<any>;
@@ -254,7 +254,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     kickMember(id: string, memberId: string): Promise<any>;
@@ -263,7 +263,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     muteMember(id: string, memberId: string): Promise<any>;
@@ -272,7 +272,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     unmuteMember(id: string, memberId: string): Promise<any>;
@@ -281,7 +281,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     deafMember(id: string, memberId: string): Promise<any>;
@@ -290,7 +290,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     undeafMember(id: string, memberId: string): Promise<any>;
@@ -300,7 +300,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
      * @param {string} url - urls for audio
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     playAudioToMember(id: string, memberId: string, url: string): Promise<any>;
@@ -309,7 +309,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopPlayingAudioToMember(id: string, memberId: string): Promise<any>;
@@ -320,7 +320,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @param {string} memberId - id of member
      * @param {string} text - text to speak
      * @param {object} optionalParams - optional params
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     speakTextToMember(id: string, memberId: string, text: string, optionalParams: object): Promise<any>;
@@ -329,7 +329,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of conference
      * @param {string} memberId - id of member
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopSpeakingTextToMember(id: string, memberId: string): Promise<any>;
@@ -346,7 +346,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @param {string} [params.transcriptionMethod] The method used to invoke the transcription_url. Defaults to POST.
      * @param {string} [params.callbackUrl] The URL invoked by the API when the recording ends.
      * @param {string} [params.callbackMethod] The method which is used to invoke the callback_url URL. Defaults to POST.
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     record(id: string, params: {
@@ -370,7 +370,7 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * @param {string} [params.transcriptionMethod] The method used to invoke the transcription_url. Defaults to POST.
      * @param {string} [params.callbackUrl] The URL invoked by the API when the recording ends.
      * @param {string} [params.callbackMethod] The method which is used to invoke the callback_url URL. Defaults to POST.
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     startRecording(id: string, params: {
@@ -385,13 +385,13 @@ export class ConferenceInterface extends PlivoResourceInterface {
      * stop recording
      * @method
      * @param {string} id - id of conference
-     * @promise {PlivoGenericResponse} return PlivoGenericResponse if success
+     * @promise {VobizGenericResponse} return VobizGenericResponse if success
      * @fail {Error} return Error
      */
     stopRecording(id: string): Promise<any>;
     [clientKey]: symbol;
 }
-import { PlivoResource } from "../base";
+import { VobizResource } from "../base";
 declare const clientKey: unique symbol;
-import { PlivoResourceInterface } from "../base";
+import { VobizResourceInterface } from "../base";
 export {};

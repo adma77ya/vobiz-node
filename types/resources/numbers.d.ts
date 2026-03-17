@@ -39,7 +39,7 @@ export class SearchNumberResponse {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class PhoneNumber extends PlivoResource {
+export class PhoneNumber extends VobizResource {
 	constructor(client: Function, data?: {});
 	id: string;
 	/**
@@ -48,7 +48,7 @@ export class PhoneNumber extends PlivoResource {
 	 * @param {string} appId - app id
 	 * @param {string} cnamLookup - cnam lookup
 	 * @param {boolean} haEnable - enable HA Number
-	 * @promise {@link PlivoGenericResponse} return PlivoGenericResponse Object if success
+	 * @promise {@link VobizGenericResponse} return VobizGenericResponse Object if success
 	 * @fail {Error} return Error
 	 */
 	buy(number: string, appId?: string, cnamLookup?: string, haEnable?: boolean): Promise<any>;
@@ -61,7 +61,7 @@ export class PhoneNumber extends PlivoResource {
  * @param {object} [data] - data of call
  * @param {string} [data.test] - test data
  */
-export class PhoneNumberInterface extends PlivoResourceInterface {
+export class PhoneNumberInterface extends VobizResourceInterface {
 	constructor(client: Function, data?: {});
 	/**
 	 * Buy Phone Number
@@ -69,7 +69,7 @@ export class PhoneNumberInterface extends PlivoResourceInterface {
 	 * @param {string} appId - app id
 	 * @param {string} cnamLookup - cnam lookup
 	 * @param {boolean} haEnable - enable HA Number
-	 * @promise {@link PlivoGenericResponse} return PlivoGenericResponse Object if success
+	 * @promise {@link VobizGenericResponse} return VobizGenericResponse Object if success
 	 * @fail {Error} return Error
 	 */
 	buy(number: string, appId?: string, cnamLookup?: string, haEnable?: boolean): Promise<any>;
@@ -81,7 +81,7 @@ export class PhoneNumberInterface extends PlivoResourceInterface {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class NumberResource extends PlivoResource {
+export class NumberResource extends VobizResource {
 	constructor(client: Function, data?: {});
 	id: string;
 	/**
@@ -99,7 +99,7 @@ export class NumberResource extends PlivoResource {
  * @param {function} client - make api call
  * @param {object} [data] - data of call
  */
-export class NumberInterface extends PlivoResourceInterface {
+export class NumberInterface extends VobizResourceInterface {
 	constructor(client: Function);
 	/**
 	 * Buy Phone Number
@@ -108,7 +108,7 @@ export class NumberInterface extends PlivoResourceInterface {
 	 * @param {string} appId - app id
 	 * @param {string} cnamLookup - cnam lookup
 	 * @param {boolean} haEnable - enable HA Number
-	 * @promise {@link PlivoGenericResponse} return PlivoGenericResponse Object if success
+	 * @promise {@link VobizGenericResponse} return VobizGenericResponse Object if success
 	 * @fail {Error} return Error
 	 */
 	buy(number: string, appId?: string, cnamLookup?: string, haEnable?: boolean): Promise<BuyNumberResponse>;
@@ -119,7 +119,7 @@ export class NumberInterface extends PlivoResourceInterface {
 	 * @param {string} carrier - The carrier_id of the IncomingCarrier that the number is associated with.
 	 * @param {string} region - region that is associated with the Number
 	 * @param {string} optionaParams - optional params
-	 * @promise {@link PlivoGenericResponse} return PlivoGenericResponse Object if success
+	 * @promise {@link VobizGenericResponse} return VobizGenericResponse Object if success
 	 * @fail {Error} return Error
 	 */
 	addOwnNumber(numbers: string, carrier: string, region: string, optionalParams: object): Promise<UpdateNumberResponse>;
@@ -159,10 +159,10 @@ export class NumberInterface extends PlivoResourceInterface {
 	[clientKey]: symbol;
 }
 import {
-	PlivoResource
+	VobizResource
 } from "../base";
 declare const clientKey: unique symbol;
 import {
-	PlivoResourceInterface
+	VobizResourceInterface
 } from "../base";
 export { };

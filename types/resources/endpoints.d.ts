@@ -44,7 +44,7 @@ export class CreateEndpointResponse {
 * @param {function} client - make api call
 * @param {object} [data] - data of call
 */
-export class Endpoint extends PlivoResource {
+export class Endpoint extends VobizResource {
     constructor(client: Function, data?: {});
     id: string;
     /**
@@ -74,7 +74,7 @@ export class Endpoint extends PlivoResource {
 * @param {function} client - make api call
 * @param {object} [data] - data of call
 */
-export class EndpointInterface extends PlivoResourceInterface {
+export class EndpointInterface extends VobizResourceInterface {
     constructor(client: Function, data?: {});
     /**
      * Get Endpoint by given id
@@ -99,7 +99,7 @@ export class EndpointInterface extends PlivoResourceInterface {
      * @param {string} passwowrd - password to create
      * @param {string} alias - alias to create
      * @param {string} appId - app id to create
-     * @promise {object} return {@link PlivoGenericResponse} object if success
+     * @promise {object} return {@link VobizGenericResponse} object if success
      * @fail {Error} return Error
      */
     create(username: string, password: string, alias: string, appId: string): Promise<CreateEndpointResponse>;
@@ -126,7 +126,7 @@ export class EndpointInterface extends PlivoResourceInterface {
     delete(id: string): any;
     [clientKey]: symbol;
 }
-import { PlivoResource } from "../base";
+import { VobizResource } from "../base";
 declare const clientKey: unique symbol;
-import { PlivoResourceInterface } from "../base";
+import { VobizResourceInterface } from "../base";
 export {};

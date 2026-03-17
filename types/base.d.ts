@@ -1,8 +1,8 @@
-export class PlivoGenericResponse {
+export class VobizGenericResponse {
     constructor(params: object, idString: string);
     id: string;
 }
-export class PlivoResource {
+export class VobizResource {
     constructor(action: string, Klass: Symbol, idField: string, request: any);
     // update(params: any, id: any): Promise<any>;
     delete(params: any): Promise<any>;
@@ -11,7 +11,7 @@ export class PlivoResource {
     customexecuteGetNumberAction(url: string, method?: string, params?: {}): any;
     getMetaResponse(url: string, method?: string, params?: {}): Promise<any>;
 }
-export class PlivoResourceInterface {
+export class VobizResourceInterface {
     constructor(action: string, Klass: Symbol, idField: string, request: any);
     // get(id: any, params?: {}): Promise<any>;
     // create(params: any): Promise<any>;

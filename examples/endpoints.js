@@ -1,37 +1,33 @@
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 
-var create = {
-  username: "thisistestendpoint",
-  password: "thisistestpassword",
-  alias: "this is test alias"
-};
+var endpointId;
 
-var update = {
-  password: "hi new password",
-  alias: "hi new alias"
-};
-
-client.endpoints.create(create.username, create.password, create.alias)
+// Create a SIP endpoint
+client.endpoints.create('testuser_' + Date.now(), 'SecurePass123!', 'Test Endpoint')
   .then(function(endpoint) {
-    console.log("\n============ created ===========\n", endpoint)
-    return client.endpoints.update(endpoint.id, update.username, update.password, update.alias);
+    console.log("\n============ created ===========\n", endpoint);
+    endpointId = endpoint.endpointId;
+    return client.endpoints.update(endpointId, {
+      alias: 'Updated Alias',
+      password: 'NewPass456!'
+    });
   })
   .then(function(endpoint) {
-    console.log("\n============ updated ===========\n", endpoint)
-    return client.endpoints.get(endpoint.id);
+    console.log("\n============ updated ===========\n", endpoint);
+    return client.endpoints.get(endpointId);
   })
-  .then(function(endpoint){
-    console.log("\n============ list with id ===========\n", endpoint)
-    return endpoint.delete();
+  .then(function(endpoint) {
+    console.log("\n============ get ===========\n", endpoint);
+    return client.endpoints.delete(endpointId);
   })
-  .then(function(result){
-    console.log("\n============ deleted ===========\n", result)
-    return client.endpoints.list()
+  .then(function(result) {
+    console.log("\n============ deleted ===========\n", result);
+    return client.endpoints.list();
   })
-  .then(function(endpoints){
-    console.log("\n============ list all ===========\n", endpoints)
+  .then(function(endpoints) {
+    console.log("\n============ list all ===========\n", endpoints);
   })
-  .catch(function(response) {
-    console.log("\n============ Error :: ===========\n", response);
+  .catch(function(err) {
+    console.log("\n============ Error ===========\n", err.message);
   });

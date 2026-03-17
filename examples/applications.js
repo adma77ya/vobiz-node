@@ -1,28 +1,36 @@
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 
-client.applications.create("http://google.com/", "MyNewApplication" + Math.random(1000))
-  .then(function(application) {
-    console.log("\n============ created ===========\n", application)
-    return client.applications.update(application.id, {
-      answer_url: 'http://google1.com/'
+var appId;
+
+// Create an application
+client.applications.create('MyApp-' + Date.now(), {
+  answerUrl:    'https://example.com/answer',
+  hangupUrl:    'https://example.com/hangup',
+  answerMethod: 'POST'
+})
+  .then(function(app) {
+    console.log("\n============ created ===========\n", app);
+    appId = app.appId;
+    return client.applications.update(appId, {
+      answerUrl: 'https://example.com/new-answer'
     });
   })
-  .then(function(application) {
-    console.log("\n============ updated ===========\n", application)
-    return client.applications.get(application.id);
+  .then(function(app) {
+    console.log("\n============ updated ===========\n", app);
+    return client.applications.get(appId);
   })
-  .then(function(application){
-    console.log("\n============ list with id ===========\n", application)
-    return application.delete();
+  .then(function(app) {
+    console.log("\n============ get ===========\n", app);
+    return client.applications.delete(appId);
   })
-  .then(function(result){
-    console.log("\n============ deleted ===========\n", result)
-    return client.applications.list()
+  .then(function(result) {
+    console.log("\n============ deleted ===========\n", result);
+    return client.applications.list({ limit: 10, offset: 0 });
   })
-  .then(function(applications){
-    console.log("\n============ list all ===========\n", applications)
+  .then(function(apps) {
+    console.log("\n============ list all ===========\n", apps);
   })
-  .catch(function(response) {
-    console.log("\n============ Error :: ===========\n", response);
+  .catch(function(err) {
+    console.log("\n============ Error ===========\n", err.message);
   });

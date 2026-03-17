@@ -54,7 +54,7 @@ export class ListAllApplicationResponse {
     sipUri: string;
     subAccount: string;
 }
-export class Application extends PlivoResource {
+export class Application extends VobizResource {
     constructor(client: Function, data?: {});
     id: string;
     [clientKey]: symbol;
@@ -65,7 +65,7 @@ export class Application extends PlivoResource {
 * @param {function} client - make api call
 * @param {object} [data] - data of call
 */
-export class ApplicationInterface extends PlivoResourceInterface {
+export class ApplicationInterface extends VobizResourceInterface {
     constructor(client: Function, data?: {});
     /**
      * get application by given id
@@ -91,19 +91,19 @@ export class ApplicationInterface extends PlivoResourceInterface {
      * @param {object} params - params to create application
      * @param {string} [params.answerUrl] - answer url
      * @param {string} [params.appName] The name of your application
-     * @param {string} [params.answerUrl] The URL invoked by Plivo when a call executes this application.
+     * @param {string} [params.answerUrl] The URL invoked by Vobiz when a call executes this application.
      * @param {string} [params.answerMethod] The method used to call the answer_url. Defaults to POST.
-     * @param {string} [params.hangupUrl] The URL that is notified by Plivo when the call hangs up.
+     * @param {string} [params.hangupUrl] The URL that is notified by Vobiz when the call hangs up.
      * @param {string} [params.hangupMethod] The method used to call the hangup_url. Defaults to POST
-     * @param {string} [params.fallbackAnswerUrl] Invoked by Plivo only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
+     * @param {string} [params.fallbackAnswerUrl] Invoked by Vobiz only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
      * @param {string} [params.fallbackMethod] The method used to call the fallback_answer_url. Defaults to POST.
-     * @param {string} [params.messageUrl] The URL that is notified by Plivo when an inbound message is received. Defaults not set.
+     * @param {string} [params.messageUrl] The URL that is notified by Vobiz when an inbound message is received. Defaults not set.
      * @param {string} [params.messageMethod] The method used to call the message_url. Defaults to POST.
-     * @param {boolean} [params.defaultNumberApp] If set to true, associates all newly created Plivo numbers that have not specified an app_id, to this application.
-     * @param {boolean} [params.defaultEndpointApp] If set to true, associates all newly created Plivo endpoints that have not specified an app_id, to this application.
+     * @param {boolean} [params.defaultNumberApp] If set to true, associates all newly created Vobiz numbers that have not specified an app_id, to this application.
+     * @param {boolean} [params.defaultEndpointApp] If set to true, associates all newly created Vobiz endpoints that have not specified an app_id, to this application.
      * @param {string} [params.subaccount] Id of the subaccount, in case only subaccount applications are needed.
      * @param {boolean} [params.logIncomingMessages] flag to control incoming message logs.
-     * @promise {object} return {@link PlivoGenericResponse} object
+     * @promise {object} return {@link VobizGenericResponse} object
      * @fail {Error} return Error
      */
     create(appName: string, params?: {}): Promise<CreateApplicationResponse>;
@@ -112,16 +112,16 @@ export class ApplicationInterface extends PlivoResourceInterface {
      * @method
      * @param {string} id - id of application
      * @param {object} params - to update application
-     * @param {string} [params.answerUrl] The URL invoked by Plivo when a call executes this application.
+     * @param {string} [params.answerUrl] The URL invoked by Vobiz when a call executes this application.
      * @param {string} [params.answerMethod] The method used to call the answer_url. Defaults to POST.
-     * @param {string} [params.hangupUrl] The URL that is notified by Plivo when the call hangs up.
+     * @param {string} [params.hangupUrl] The URL that is notified by Vobiz when the call hangs up.
      * @param {string} [params.hangupMethod] The method used to call the hangup_url. Defaults to POST
-     * @param {string} [params.fallbackAnswerUrl] Invoked by Plivo only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
+     * @param {string} [params.fallbackAnswerUrl] Invoked by Vobiz only if answer_url is unavailable or the XML response is invalid. Should contain a XML response.
      * @param {string} [params.fallbackMethod] The method used to call the fallback_answer_url. Defaults to POST.
-     * @param {string} [params.messageUrl] The URL that is notified by Plivo when an inbound message is received. Defaults not set.
+     * @param {string} [params.messageUrl] The URL that is notified by Vobiz when an inbound message is received. Defaults not set.
      * @param {string} [params.messageMethod] The method used to call the message_url. Defaults to POST.
-     * @param {boolean} [params.defaultNumberApp] If set to true, associates all newly created Plivo numbers that have not specified an app_id, to this application.
-     * @param {boolean} [params.defaultEndpointApp] If set to true, associates all newly created Plivo endpoints that have not specified an app_id, to this application.
+     * @param {boolean} [params.defaultNumberApp] If set to true, associates all newly created Vobiz numbers that have not specified an app_id, to this application.
+     * @param {boolean} [params.defaultEndpointApp] If set to true, associates all newly created Vobiz endpoints that have not specified an app_id, to this application.
      * @param {string} [params.subaccount] Id of the subaccount, in case only subaccount applications are needed.
      * @param {boolean} [params.logIncomingMessages] flag to control incoming message logs.
      * @promise {object} return {@link Application} object
@@ -157,7 +157,7 @@ export class ApplicationInterface extends PlivoResourceInterface {
     }): Promise<any>;
     [clientKey]: symbol;
 }
-import { PlivoResource } from "../base";
+import { VobizResource } from "../base";
 declare const clientKey: unique symbol;
-import { PlivoResourceInterface } from "../base";
+import { VobizResourceInterface } from "../base";
 export {};

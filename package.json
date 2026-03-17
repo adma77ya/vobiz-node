@@ -26,21 +26,28 @@
     "url": "git://github.com/adma77ya/vobiz-node.git"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "serve": "node server.js",
+    "test": "node test-sdk.js"
   },
   "dependencies": {
     "@types/node": "^14.14.14",
     "axios": "^1.8.3",
     "base-64": "^0.1.0",
     "build-url": "^1.0.10",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "form-data": "^4.0.0",
     "https-proxy-agent": "^5.0.0",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
+    "localtunnel": "^2.0.2",
     "lodash": "^4.17.4",
     "querystring": "^0.2.0",
     "request": "^2.88.2",
     "uri-parser": "^1.0.0",
-    "utf8": "^2.1.2"
+    "utf8": "^2.1.2",
+    "xml2js": "^0.6.2",
+    "xmlbuilder": "^15.1.1"
   }
 }

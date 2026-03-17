@@ -1,30 +1,34 @@
 var Vobiz = require('..');
 var client = new Vobiz.Client();
 
-client.subAccounts.create(new Date().getTime().toString())
+var subAccountId;
+
+// Create a sub-account
+client.subaccounts.create({
+  name:     'Test Sub-account ' + Date.now(),
+  email:    'subtest@example.com',
+  password: 'SecurePass123!'
+})
   .then(function(response) {
-    console.log("\n============ Sub Account Detail ===========\n", response)
-    return client.subAccounts.get(response.auth_id)
+    console.log("\n============ created ===========\n", response);
+    subAccountId = response.id || response.auth_id;
+    return client.subaccounts.get(subAccountId);
   })
   .then(function(response) {
-    console.log("\n============ Sub Account Detail ===========\n", response)
-    return response.update(new Date().getTime().toString(), true)
+    console.log("\n============ get ===========\n", response);
+    return client.subaccounts.update(subAccountId, { name: 'Updated Sub-account' });
   })
   .then(function(response) {
-    console.log("\n============ Sub Account Detail ===========\n", response)
-    return client.subAccounts.get(response.auth_id)
+    console.log("\n============ updated ===========\n", response);
+    return client.subaccounts.delete(subAccountId);
   })
   .then(function(response) {
-    console.log("\n============ updated ===========\n", response)
-    return response.delete()
+    console.log("\n============ deleted ===========\n", response);
+    return client.subaccounts.list();
   })
   .then(function(response) {
-    console.log("\n============ deleted ===========\n", response)
-    return client.subAccounts.list()
+    console.log("\n============ list all ===========\n", response);
   })
-  .then(function(response) {
-    console.log("\n============ All Subaccounts  ===========\n", response)
-  })
-  .catch(function(response) {
-    console.log("\n============ Error :: ===========\n", response, response.message);
+  .catch(function(err) {
+    console.log("\n============ Error ===========\n", err.message);
   });

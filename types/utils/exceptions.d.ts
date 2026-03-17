@@ -1,21 +1,21 @@
-export class PlivoRestError extends Error {
+export class VobizRestError extends Error {
     constructor(message?: string);
 }
-export class ResourceNotFoundError extends PlivoRestError {
+export class ResourceNotFoundError extends VobizRestError {
     constructor(message?: string);
 }
-export class ServerError extends PlivoRestError {
+export class ServerError extends VobizRestError {
     constructor(message?: string);
 }
-export class InvalidRequestError extends PlivoRestError {
+export class InvalidRequestError extends VobizRestError {
     constructor(message?: string);
 }
-export class PlivoXMLError extends PlivoRestError {
+export class VobizXMLError extends VobizRestError {
     constructor(message?: string);
 }
-export class PlivoXMLValidationError extends PlivoRestError {
+export class VobizXMLValidationError extends VobizRestError {
     constructor(message?: string);
 }
-export class AuthenticationError extends PlivoRestError {
+export class AuthenticationError extends VobizRestError {
     constructor(message?: string);
 }
