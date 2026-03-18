@@ -10,3 +10,8 @@ CLEANUP_COMPLETE.md
 XML2_README.md
 XML_COMPLETE_REFERENCE.md
 test-all-xml.js
+
+# Exclude documentation and test files from repository
+*.md
+test*.js
+**/test*.js
