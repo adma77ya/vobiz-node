@@ -15,3 +15,4 @@ test-all-xml.js
 *.md
 test*.js
 **/test*.js
+xml*.txt
