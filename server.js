@@ -31,11 +31,39 @@ if (!AUTH_ID || !AUTH_TOKEN) {
 
 const vobiz = new Client(AUTH_ID, AUTH_TOKEN);
 
-// ─── Webhook XML Templates ──────────────────────────────────────────────────
-// Enhanced XML generators based on xml2.txt specifications
+// ─── XML Generators (Modular) ───────────────────────────────────────────────
+// Professional SDK structure with organized XML generators
+const xml = require('./lib/xml');
+
+// Destructure for convenience
+const {
+  // Basic elements
+  play: generatePlayXML,
+  wait: generateWaitXML,
+  hangup: generateHangupXML,
+  redirect: generateRedirectXML,
+  dtmf: generateDTMFXML,
+  preanswer: generatePreAnswerXML,
+  stream: generateStreamXML,
+  conference: generateConferenceXML,
+} = xml.basic;
+
+const {
+  // Advanced elements
+  dial: generateDialXML,
+  gather: generateGatherXML,
+  record: generateRecordXML,
+} = xml.advanced;
+
+const {
+  // Enhanced elements
+  speak: generateSpeakXML,
+  ssml: buildSSMLContent,
+  speakAndWait: generateSpeakAndWaitXML,
+} = xml.enhanced;
 
 // Enhanced Dial element with advanced attributes (xml2.txt)
-function generateDialXML(options = {}) {
+function generateDialXMLHelper(options = {}) {
   const {
     phoneNumber = '+14155551234',
     actionUrl = null,
@@ -75,140 +103,6 @@ function generateDialXML(options = {}) {
 </Response>`;
 }
 
-// Enhanced Gather element with advanced attributes (xml2.txt)
-function generateGatherXML(options = {}) {
-  const {
-    actionUrl = null,
-    method = 'POST',
-    inputType = 'dtmf',
-    executionTimeout = 15,
-    digitEndTimeout = 'auto',
-    speechEndTimeout = 'auto',
-    finishOnKey = '#',
-    numDigits = 1,
-    speechModel = 'default',
-    language = 'en-US',
-    interimSpeechResultsCallback = null,
-    log = true,
-    redirect = true,
-    profanityFilter = false,
-    prompt = 'Please press a digit or speak your input.'
-  } = options;
-
-  const actionAttr = actionUrl ? ` action="${actionUrl}" method="${method}"` : '';
-  const inputTypeAttr = inputType ? ` inputType="${inputType}"` : '';
-  const executionTimeoutAttr = executionTimeout ? ` executionTimeout="${executionTimeout}"` : '';
-  const digitEndTimeoutAttr = digitEndTimeout ? ` digitEndTimeout="${digitEndTimeout}"` : '';
-  const speechEndTimeoutAttr = speechEndTimeout ? ` speechEndTimeout="${speechEndTimeout}"` : '';
-  const finishOnKeyAttr = finishOnKey !== undefined ? ` finishOnKey="${finishOnKey}"` : '';
-  const numDigitsAttr = numDigits ? ` numDigits="${numDigits}"` : '';
-  const speechModelAttr = speechModel ? ` speechModel="${speechModel}"` : '';
-  const languageAttr = language ? ` language="${language}"` : '';
-  const logAttr = ` log="${log}"`;
-  const redirectAttr = ` redirect="${redirect}"`;
-  const profanityFilterAttr = ` profanityFilter="${profanityFilter}"`;
-  const interimCallbackAttr = interimSpeechResultsCallback ? ` interimSpeechResultsCallback="${interimSpeechResultsCallback}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Gather${actionAttr}${inputTypeAttr}${executionTimeoutAttr}${digitEndTimeoutAttr}${speechEndTimeoutAttr}${finishOnKeyAttr}${numDigitsAttr}${speechModelAttr}${languageAttr}${logAttr}${redirectAttr}${profanityFilterAttr}${interimCallbackAttr}>
-    <Speak voice="WOMAN" language="en-US">
-      ${prompt}
-    </Speak>
-  </Gather>
-</Response>`;
-}
-
-// Enhanced Record element with all xml2.txt attributes
-function generateRecordXML(options = {}) {
-  const {
-    actionUrl = null,
-    method = 'POST',
-    fileFormat = 'mp3',
-    redirect = false,
-    timeout = 60,
-    maxLength = 60,
-    playBeep = true,
-    finishOnKey = '#',
-    recordSession = false,
-    startOnDialAnswer = false,
-    transcriptionType = 'auto',
-    transcriptionUrl = null,
-    transcriptionMethod = 'POST',
-    callbackUrl = null,
-    callbackMethod = 'POST',
-    prompt = 'Please leave your message after the beep. Press hash when done.'
-  } = options;
-
-  const actionAttr = actionUrl ? ` action="${actionUrl}" method="${method}" redirect="${redirect}"` : '';
-  const fileFormatAttr = fileFormat ? ` fileFormat="${fileFormat}"` : '';
-  const timeoutAttr = timeout ? ` timeout="${timeout}"` : '';
-  const maxLengthAttr = maxLength ? ` maxLength="${maxLength}"` : '';
-  const playBeepAttr = ` playBeep="${playBeep}"`;
-  const finishOnKeyAttr = finishOnKey ? ` finishOnKey="${finishOnKey}"` : '';
-  const recordSessionAttr = ` recordSession="${recordSession}"`;
-  const startOnDialAnswerAttr = ` startOnDialAnswer="${startOnDialAnswer}"`;
-  const transcriptionTypeAttr = transcriptionType ? ` transcriptionType="${transcriptionType}"` : '';
-  const transcriptionUrlAttr = transcriptionUrl ? ` transcriptionUrl="${transcriptionUrl}" transcriptionMethod="${transcriptionMethod}"` : '';
-  const callbackUrlAttr = callbackUrl ? ` callbackUrl="${callbackUrl}" callbackMethod="${callbackMethod}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">
-    ${prompt}
-  </Speak>
-  <Record${actionAttr}${fileFormatAttr}${timeoutAttr}${maxLengthAttr}${playBeepAttr}${finishOnKeyAttr}${recordSessionAttr}${startOnDialAnswerAttr}${transcriptionTypeAttr}${transcriptionUrlAttr}${callbackUrlAttr}/>
-</Response>`;
-}
-
-// Enhanced Hangup element with schedule attribute (xml2.txt)
-function generateHangupXML(options = {}) {
-  const {
-    reason = null,
-    schedule = null,
-    prompt = 'Thank you for calling. Goodbye!'
-  } = options;
-
-  const reasonAttr = reason ? ` reason="${reason}"` : '';
-  const scheduleAttr = schedule ? ` schedule="${schedule}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">
-    ${prompt}
-  </Speak>
-  <Hangup${reasonAttr}${scheduleAttr}/>
-</Response>`;
-}
-
-// Enhanced DTMF element with async attribute (xml2.txt)
-function generateDTMFXML(options = {}) {
-  const {
-    digits = '1234',
-    async = true
-  } = options;
-
-  const asyncAttr = ` async="${async}"`;
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">
-    Sending tones: ${digits}
-  </Speak>
-  <DTMF${asyncAttr}>${digits}</DTMF>
-</Response>`;
-}
-
-// Play audio file (Play element)
-function generatePlayXML(audioUrl, continueUrl = null) {
-  const nextElement = continueUrl ? `<Redirect>${continueUrl}</Redirect>` : '';
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Play>${audioUrl}</Play>
-  ${nextElement}
-</Response>`;
-}
-
 // Basic greeting with IVR menu (Speak + Gather)
 function generateAnswerXML() {
   return generateGatherXML({
@@ -220,182 +114,6 @@ function generateAnswerXML() {
     numDigits: 1,
     prompt: 'Welcome to Vobiz telephony platform. Press 1 for a test message, 2 to record a voicemail, 3 to join conference, or 0 to hangup.'
   });
-}
-
-// Conference element with advanced attributes
-function generateConferenceXML(options = {}) {
-  const {
-    conferenceName = 'default-conference',
-    actionUrl = null,
-    method = 'POST',
-    prompt = 'Connecting you to the conference room.'
-  } = options;
-
-  const actionAttr = actionUrl ? ` action="${actionUrl}" method="${method}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">
-    ${prompt}
-  </Speak>
-  <Conference${actionAttr}>${conferenceName}</Conference>
-</Response>`;
-}
-
-// Redirect element (forward to another URL)
-function generateRedirectXML(redirectUrl) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Redirect>${redirectUrl}</Redirect>
-</Response>`;
-}
-
-// PreAnswer element (early media) - per xml2.txt
-function generatePreAnswerXML(options = {}) {
-  const {
-    audioUrl = null,
-    prompt = 'Please hold while we process your call.'
-  } = options;
-
-  const audioContent = audioUrl 
-    ? `<Play>${audioUrl}</Play>`
-    : `<Speak voice="WOMAN" language="en-US">${prompt}</Speak>`;
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <PreAnswer/>
-  ${audioContent}
-</Response>`;
-}
-
-// Stream element (WebSocket audio streaming)
-function generateStreamXML(options = {}) {
-  const {
-    streamUrl = 'wss://stream.example.com/audio',
-    bidirectional = true,
-    streamTimeout = 600,
-    statusCallbackUrl = null
-  } = options;
-
-  const bidirectionalAttr = ` bidirectional="${bidirectional}"`;
-  const streamTimeoutAttr = ` streamTimeout="${streamTimeout}"`;
-  const statusCallbackAttr = statusCallbackUrl ? ` statusCallbackUrl="${statusCallbackUrl}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Stream${bidirectionalAttr}${streamTimeoutAttr}${statusCallbackAttr}>
-    ${streamUrl}
-  </Stream>
-</Response>`;
-}
-
-// Enhanced Speak element with full xml3.txt attributes
-function generateSpeakXML(options = {}) {
-  const {
-    text = 'Hello',
-    voice = 'WOMAN',
-    language = 'en-US',
-    loop = 1,
-    useSSML = false,
-    ssmlContent = null
-  } = options;
-
-  // Supported voices and languages per xml3.txt
-  const supportedLanguages = [
-    'da-DK', 'nl-NL', 'en-AU', 'en-GB', 'en-US', 'fr-FR', 'fr-CA',
-    'de-DE', 'it-IT', 'pl-PL', 'pt-PT', 'pt-BR', 'ru-RU', 'es-ES',
-    'es-US', 'sv-SE'
-  ];
-
-  const voiceAttr = ` voice="${voice}"`;
-  const languageAttr = ` language="${language}"`;
-  const loopAttr = loop && loop > 0 ? ` loop="${loop}"` : (loop === 0 ? ` loop="0"` : '');
-
-  const content = useSSML && ssmlContent 
-    ? ssmlContent 
-    : text;
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak${voiceAttr}${languageAttr}${loopAttr}>
-    ${content}
-  </Speak>
-</Response>`;
-}
-
-// Enhanced Wait element with full xml3.txt attributes
-function generateWaitXML(options = {}) {
-  const {
-    length = 1,
-    silence = false,
-    minSilence = 2000,
-    beep = false,
-    prompt = null
-  } = options;
-
-  const lengthAttr = ` length="${length}"`;
-  const silenceAttr = silence ? ` silence="${silence}"` : '';
-  const minSilenceAttr = (silence && minSilence) ? ` minSilence="${minSilence}"` : '';
-  const beepAttr = beep ? ` beep="${beep}"` : '';
-
-  const prePrompt = prompt ? `<Speak voice="WOMAN" language="en-US">${prompt}</Speak>` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  ${prePrompt}
-  <Wait${lengthAttr}${silenceAttr}${minSilenceAttr}${beepAttr}/>
-</Response>`;
-}
-
-// Combo: Speak + Wait (commonly used together)
-function generateSpeakAndWaitXML(options = {}) {
-  const {
-    text = 'Processing',
-    voice = 'WOMAN',
-    language = 'en-US',
-    waitLength = 3,
-    silence = false,
-    minSilence = 2000
-  } = options;
-
-  const voiceAttr = ` voice="${voice}"`;
-  const languageAttr = ` language="${language}"`;
-  const waitLengthAttr = ` length="${waitLength}"`;
-  const silenceAttr = silence ? ` silence="${silence}"` : '';
-  const minSilenceAttr = (silence && minSilence) ? ` minSilence="${minSilence}"` : '';
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak${voiceAttr}${languageAttr}>
-    ${text}
-  </Speak>
-  <Wait${waitLengthAttr}${silenceAttr}${minSilenceAttr}/>
-</Response>`;
-}
-
-// SSML Helper - Build SSML content for enhanced speech
-function buildSSMLContent(options = {}) {
-  const {
-    text = 'Hello',
-    rate = 'medium',
-    breaks = 1,
-    spellOut = false,
-    voice = 'Polly.Amy'
-  } = options;
-
-  let breakTags = '';
-  for (let i = 0; i < breaks; i++) {
-    breakTags += '<break/>';
-  }
-
-  const content = spellOut 
-    ? `<say-as interpret-as="spell-out">${text}</say-as>`
-    : text;
-
-  return `<prosody rate="${rate}">
-    ${content}
-    ${breakTags}
-  </prosody>`;
 }
 
 // Legacy simple answer
