@@ -5,14 +5,17 @@ AGENT_CHANGELOG.md
 *.log
 .DS_Store
 
-# Local/generated XML docs and tests
-CLEANUP_COMPLETE.md
-XML2_README.md
-XML_COMPLETE_REFERENCE.md
-test-all-xml.js
-
-# Exclude documentation and test files from repository
+# Ignore generated docs/tests/spec artifacts
 *.md
 test*.js
 **/test*.js
 xml*.txt
+XML*_SUMMARY.js
+show-xml2-examples.js
+
+# Keep professional SDK top-level docs/tests
+!README.md
+!NOTICE.md
+!test-apis.js
+!test-calls.js
+!test-sdk.js
