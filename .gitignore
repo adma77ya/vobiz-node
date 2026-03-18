@@ -5,7 +5,8 @@ AGENT_CHANGELOG.md
 *.log
 .DS_Store
 
-# Keep documentation and tests tracked
-!*.md
-!test*.js
-!**/test*.js
+# Local/generated XML docs and tests
+CLEANUP_COMPLETE.md
+XML2_README.md
+XML_COMPLETE_REFERENCE.md
+test-all-xml.js
