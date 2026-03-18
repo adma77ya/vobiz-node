@@ -19,3 +19,8 @@ show-xml2-examples.js
 !test-apis.js
 !test-calls.js
 !test-sdk.js
+!lib/xml/README.md
+!examples/README.md
+!REFACTOR_COMPLETE.md
+!PHASE_COMPLETE.md
+!QUICK_REFERENCE.md
