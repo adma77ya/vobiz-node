@@ -547,10 +547,17 @@ function connectSSE() {
   evtSource.addEventListener('call.answered', e => {
     const d = JSON.parse(e.data);
     log(`Webhook: call answered — ${d.callUuid}`, 'ok');
-    if (currentCall && !currentCall.callUuid && d.requestUuid === currentCall.requestUuid) {
+    // Accept the webhook if requestUuid matches, OR if requestUuid is absent from the
+    // webhook body (some Vobiz deployments omit it) and we have no callUuid yet.
+    const matchesOurs = currentCall && d.callUuid && (
+      d.requestUuid === currentCall.requestUuid ||
+      (!d.requestUuid && !currentCall.callUuid)
+    );
+    if (matchesOurs && !currentCall.callUuid) {
       currentCall.callUuid = d.callUuid;
       startPolling(d.callUuid);
     }
+    // Always render if the UUID matches so the panel updates immediately.
     if (currentCall && currentCall.callUuid === d.callUuid) {
       renderStatus('in-progress', d.callUuid, currentCall.from, currentCall.to, null);
     }
@@ -730,6 +737,9 @@ async function waitForCallUuid(requestUuid) {
         clearInterval(iv);
         currentCall.callUuid = d.callUuid;
         log(`Call UUID: ${d.callUuid}`, 'inf');
+        // Show the UUID in the status panel immediately without waiting for
+        // the first poll response.
+        setField('s-uuid', d.callUuid, 'mono');
         startPolling(d.callUuid);
       }
     } catch (_) {}

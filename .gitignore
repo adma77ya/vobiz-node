@@ -4,3 +4,8 @@ llm.txt
 AGENT_CHANGELOG.md
 *.log
 .DS_Store
+
+# Keep documentation and tests tracked
+!*.md
+!test*.js
+!**/test*.js
