@@ -1,100 +1,103 @@
 require('dotenv').config();
 const express = require('express');
 
+// Import modular XML generators from Vobiz SDK
+const xml = require('../lib/xml');
+const { speak: generateSpeak } = xml.enhanced;
+const { gather: generateGather, dial: generateDial, record: generateRecord } = xml.advanced;
+const { hangup: generateHangup, redirect: generateRedirect } = xml.basic;
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const port = process.env.EXAMPLE_PORT || 5680;
 
-function xmlEscape(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function xmlResponse(body) {
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<Response>\n${body}\n</Response>`;
-}
-
-function speak(text, opts = {}) {
-  const voice = opts.voice || 'WOMAN';
-  const language = opts.language || 'en-US';
-  return `  <Speak voice="${xmlEscape(voice)}" language="${xmlEscape(language)}">${xmlEscape(text)}</Speak>`;
-}
-
-function gather(opts = {}) {
-  const action = opts.action || '/menu-choice';
-  const method = opts.method || 'POST';
-  const inputType = opts.inputType || 'dtmf';
-  const numDigits = Number.isFinite(opts.numDigits) ? opts.numDigits : 1;
-
-  return [
-    `  <Gather action="${xmlEscape(action)}" method="${xmlEscape(method)}" inputType="${xmlEscape(inputType)}" numDigits="${numDigits}">`,
-    speak('Press 1 for sales, 2 for support, 3 for voicemail, or 0 to hang up.'),
-    '  </Gather>'
-  ].join('\n');
-}
-
-function redirect(url, method = 'POST') {
-  return `  <Redirect method="${xmlEscape(method)}">${xmlEscape(url)}</Redirect>`;
-}
-
+// Answer webhook - initial menu
 app.post('/answer', function answer(req, res) {
-  const xml = xmlResponse([
-    speak('Welcome to Vobiz XML webhook example.'),
-    gather({ action: '/menu-choice', method: 'POST', inputType: 'dtmf', numDigits: 1 }),
-    redirect('/answer', 'POST')
-  ].join('\n'));
+  const xmlResponse = generateGather({
+    actionUrl: '/menu-choice',
+    method: 'POST',
+    inputType: 'dtmf',
+    numDigits: 1,
+    prompt: 'Welcome to Vobiz XML webhook example. Press 1 for sales, 2 for support, 3 for voicemail, or 0 to hang up.'
+  });
 
   res.type('text/xml');
-  res.send(xml);
+  res.send(xmlResponse);
 });
 
+// Menu choice handler - route digits to appropriate handlers
 app.post('/menu-choice', function menuChoice(req, res) {
   const digits = (req.body && (req.body.Digits || req.body.digits)) || '';
 
-  let body;
+  let xmlResponse;
   if (digits === '1') {
-    body = [
-      speak('Connecting you to sales.'),
-      '  <Dial action="/dial-complete" method="POST">+14155550101</Dial>'
-    ].join('\n');
+    // Transfer to sales
+    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Speak voice="WOMAN" language="en-US">Connecting you to sales.</Speak>
+  <Dial action="/dial-complete" method="POST">+14155550101</Dial>
+</Response>`;
   } else if (digits === '2') {
-    body = [
-      speak('Connecting you to support.'),
-      '  <Dial action="/dial-complete" method="POST">+14155550102</Dial>'
-    ].join('\n');
+    // Transfer to support
+    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Speak voice="WOMAN" language="en-US">Connecting you to support.</Speak>
+  <Dial action="/dial-complete" method="POST">+14155550102</Dial>
+</Response>`;
   } else if (digits === '3') {
-    body = [
-      speak('Please leave your voicemail after the beep.'),
-      '  <Record action="/voicemail-complete" method="POST" maxLength="60" playBeep="true" />'
-    ].join('\n');
+    // Voicemail
+    xmlResponse = generateRecord({
+      actionUrl: '/voicemail-complete',
+      method: 'POST',
+      maxLength: 60,
+      playBeep: true,
+      finishOnKey: '#',
+      prompt: 'Please leave your voicemail after the beep. Press hash when done.'
+    });
   } else {
-    body = [
-      speak('Goodbye.'),
-      '  <Hangup />'
-    ].join('\n');
+    // Hangup for invalid input or 0
+    xmlResponse = generateHangup({
+      prompt: 'Goodbye. Thank you for using Vobiz.'
+    });
   }
 
   res.type('text/xml');
-  res.send(xmlResponse(body));
+  res.send(xmlResponse);
 });
 
+// Dial complete handler
 app.post('/dial-complete', function dialComplete(req, res) {
+  const dialStatus = req.body && (req.body.DialStatus || req.body.dialStatus || 'completed');
+
+  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Speak voice="WOMAN" language="en-US">The transfer has ended. Status: ${dialStatus}. Goodbye.</Speak>
+  <Hangup/>
+</Response>`;
+
   res.type('text/xml');
-  res.send(xmlResponse(speak('The transfer has ended. Goodbye.') + '\n  <Hangup />'));
+  res.send(xmlResponse);
 });
 
+// Voicemail complete handler
 app.post('/voicemail-complete', function voicemailComplete(req, res) {
+  const recordingUrl = req.body && (req.body.RecordingUrl || req.body.recordingUrl || 'not-provided');
+  console.log('[xml-webhook-basic] voicemail recording:', recordingUrl);
+
+  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Speak voice="WOMAN" language="en-US">Thank you. Your voicemail has been recorded. Goodbye.</Speak>
+  <Hangup/>
+</Response>`;
+
   res.type('text/xml');
-  res.send(xmlResponse(speak('Thanks. Your voicemail is saved. Goodbye.') + '\n  <Hangup />'));
+  res.send(xmlResponse);
 });
 
 app.listen(port, function onListen() {
   console.log('[xml-webhook-basic] Listening on http://localhost:' + port);
+  console.log('[xml-webhook-basic] Using Vobiz modular XML generators from lib/xml');
   console.log('[xml-webhook-basic] POST /answer and /menu-choice are ready');
 });
