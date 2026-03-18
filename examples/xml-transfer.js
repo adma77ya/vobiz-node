@@ -1,11 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 
-// Import modular XML generators from Vobiz SDK
-const xml = require('../lib/xml');
-const { speak: generateSpeak } = xml.enhanced;
-const { dial: generateDial } = xml.advanced;
-const { hangup: generateHangup } = xml.basic;
+// Import XML generators from Vobiz SDK
+const { speak: generateSpeak, dial: generateDial, hangup: generateHangup } = require('../lib/xml');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));

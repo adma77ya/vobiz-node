@@ -31,11 +31,8 @@ if (!AUTH_ID || !AUTH_TOKEN) {
 
 const vobiz = new Client(AUTH_ID, AUTH_TOKEN);
 
-// ─── XML Generators (Modular) ───────────────────────────────────────────────
-// Professional SDK structure with organized XML generators
-const xml = require('./lib/xml');
-
-// Destructure for convenience
+// ─── XML Generators (Flat Structure) ────────────────────────────────────────
+// All generators imported directly from lib/xml
 const {
   // Basic elements
   play: generatePlayXML,
@@ -46,21 +43,17 @@ const {
   preanswer: generatePreAnswerXML,
   stream: generateStreamXML,
   conference: generateConferenceXML,
-} = xml.basic;
-
-const {
+  
   // Advanced elements
   dial: generateDialXML,
   gather: generateGatherXML,
   record: generateRecordXML,
-} = xml.advanced;
-
-const {
+  
   // Enhanced elements
   speak: generateSpeakXML,
   ssml: buildSSMLContent,
-  speakAndWait: generateSpeakAndWaitXML,
-} = xml.enhanced;
+  speakAndWait: generateSpeakAndWaitXML
+} = require('./lib/xml');
 
 // Enhanced Dial element with advanced attributes (xml2.txt)
 function generateDialXMLHelper(options = {}) {
