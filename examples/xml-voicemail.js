@@ -39,11 +39,9 @@ app.post('/voicemail-complete', function voicemailComplete(req, res) {
     console.log('[xml-voicemail] transcription:', transcriptionText);
   }
 
-  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Thank you. Your voicemail has been recorded and will be processed.</Speak>
-  <Hangup/>
-</Response>`;
+  const xmlResponse = generateHangup({
+    prompt: 'Thank you. Your voicemail has been recorded and will be processed.'
+  });
 
   res.type('text/xml');
   res.send(xmlResponse);

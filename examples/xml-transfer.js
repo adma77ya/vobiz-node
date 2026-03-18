@@ -13,11 +13,15 @@ const transferNumber = process.env.TRANSFER_TO || '+14155550123';
 
 // Answer webhook - initiate transfer
 app.post('/answer', function answer(req, res) {
-  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Please wait while we connect your call.</Speak>
-  <Dial action="/dial-complete" method="POST" timeout="30" callerId="+14155550000" dialMusic="real">${transferNumber}</Dial>
-</Response>`;
+  const xmlResponse = generateDial({
+    prompt: 'Please wait while we connect your call.',
+    phoneNumber: transferNumber,
+    actionUrl: '/dial-complete',
+    method: 'POST',
+    timeout: 30,
+    callerId: '+14155550000',
+    dialMusic: 'real'
+  });
 
   res.type('text/xml');
   res.send(xmlResponse);
@@ -27,11 +31,9 @@ app.post('/answer', function answer(req, res) {
 app.post('/dial-complete', function dialComplete(req, res) {
   const dialStatus = req.body && (req.body.DialStatus || req.body.dialStatus || 'unknown');
 
-  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Transfer result: ${dialStatus}.</Speak>
-  <Hangup/>
-</Response>`;
+  const xmlResponse = generateHangup({
+    prompt: `Transfer result: ${dialStatus}.`
+  });
 
   res.type('text/xml');
   res.send(xmlResponse);

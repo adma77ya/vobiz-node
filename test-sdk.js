@@ -2,13 +2,14 @@
 
 'use strict';
 
+require('dotenv').config();
 const Vobiz = require('./lib/rest/client');
 
-const AUTH_ID = process.env.AUTH_ID;
-const AUTH_TOKEN = process.env.AUTH_TOKEN;
+const AUTH_ID = process.env.VOBIZ_AUTH_ID || process.env.AUTH_ID;
+const AUTH_TOKEN = process.env.VOBIZ_AUTH_TOKEN || process.env.AUTH_TOKEN;
 
 if (!AUTH_ID || !AUTH_TOKEN) {
-  console.error('Missing required env vars: AUTH_ID and AUTH_TOKEN');
+  console.error('Missing required env vars: VOBIZ_AUTH_ID and VOBIZ_AUTH_TOKEN');
   process.exit(1);
 }
 

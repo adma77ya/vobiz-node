@@ -31,18 +31,20 @@ app.post('/menu-choice', function menuChoice(req, res) {
   let xmlResponse;
   if (digits === '1') {
     // Transfer to sales
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Connecting you to sales.</Speak>
-  <Dial action="/dial-complete" method="POST">+14155550101</Dial>
-</Response>`;
+    xmlResponse = generateDial({
+      prompt: 'Connecting you to sales.',
+      phoneNumber: '+14155550101',
+      actionUrl: '/dial-complete',
+      method: 'POST'
+    });
   } else if (digits === '2') {
     // Transfer to support
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Connecting you to support.</Speak>
-  <Dial action="/dial-complete" method="POST">+14155550102</Dial>
-</Response>`;
+    xmlResponse = generateDial({
+      prompt: 'Connecting you to support.',
+      phoneNumber: '+14155550102',
+      actionUrl: '/dial-complete',
+      method: 'POST'
+    });
   } else if (digits === '3') {
     // Voicemail
     xmlResponse = generateRecord({
@@ -68,11 +70,9 @@ app.post('/menu-choice', function menuChoice(req, res) {
 app.post('/dial-complete', function dialComplete(req, res) {
   const dialStatus = req.body && (req.body.DialStatus || req.body.dialStatus || 'completed');
 
-  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">The transfer has ended. Status: ${dialStatus}. Goodbye.</Speak>
-  <Hangup/>
-</Response>`;
+  const xmlResponse = generateHangup({
+    prompt: `The transfer has ended. Status: ${dialStatus}. Goodbye.`
+  });
 
   res.type('text/xml');
   res.send(xmlResponse);
@@ -83,11 +83,9 @@ app.post('/voicemail-complete', function voicemailComplete(req, res) {
   const recordingUrl = req.body && (req.body.RecordingUrl || req.body.recordingUrl || 'not-provided');
   console.log('[xml-webhook-basic] voicemail recording:', recordingUrl);
 
-  const xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Speak voice="WOMAN" language="en-US">Thank you. Your voicemail has been recorded. Goodbye.</Speak>
-  <Hangup/>
-</Response>`;
+  const xmlResponse = generateHangup({
+    prompt: 'Thank you. Your voicemail has been recorded. Goodbye.'
+  });
 
   res.type('text/xml');
   res.send(xmlResponse);
