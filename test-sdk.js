@@ -274,9 +274,10 @@ async function test(name, fn, verify = null) {
   }
 
   // IP ACL
+  const uniqueIp = `1.2.3.${(Date.now() % 200) + 20}`;
   const ipAclCreate = await test(
     'IP ACL - create',
-    () => client.ipAcl.create({ ipAddress: '1.2.3.4', description: 'SDK test ACL' }),
+    () => client.ipAcl.create({ ipAddress: uniqueIp, description: 'SDK test ACL' }),
     { method: 'POST', pathContains: '/ip-acl', base: 'modern', requireSnakeBody: true }
   );
 
