@@ -9,6 +9,7 @@ Official Node.js SDK for the [Vobiz](https://vobiz.ai) Voice & Telephony API.
 ## Table of Contents
 
 - [Requirements](#requirements)
+- [Beginner Guide](#beginner-guide)
 - [Installation](#installation)
 - [Authentication](#authentication)
 - [Quick Start](#quick-start)
@@ -35,6 +36,12 @@ Official Node.js SDK for the [Vobiz](https://vobiz.ai) Voice & Telephony API.
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [License](#license)
+
+---
+
+## Beginner Guide
+
+If you are new to this SDK, start with [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md).
 
 ---
 
